@@ -1,0 +1,18 @@
+#!/bin/bash
+
+SERVE_MODE="serve"
+BROWSER='google-chrome-stable'
+
+
+case $SERVE_MODE in
+  "serve-and-open")
+    npm run dev -- --open
+    ;;
+  "serve")
+    npm run dev
+    ;;
+  *)
+    echo "Unknown serve mode: $SERVE_MODE"
+    exit 1
+    ;;
+esac
