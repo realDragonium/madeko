@@ -8,34 +8,36 @@
 	import InvoiceClosingRecord from '$lib/InvoiceClosingRecord.svelte';
 	import { SluitRecord } from '$lib/domain/invoice_closing_data';
 
-	let patient = new Patient();
-	let invoiceMetadata = new InvoiceMetadata();
-	let record = new PrestatieRecord();
-	let closingRecord = new SluitRecord();
+	let rows = [];
 
 	function copy() {
-		navigator.clipboard.writeText(patient.toEIString());
+		let text = '';
+		rows.forEach((row) => (text += row.toEIString() + '\n'));
+		navigator.clipboard.writeText(text);
 	}
 
 	function reverseFunc(event: Event) {
 		event.preventDefault();
+		rows = [];
 
 		let textArea = document.getElementById('ei-textarea');
 		const lines: string[] = textArea.value.split('\n');
 
 		lines.forEach((line) => {
+			let data;
 			if (line.startsWith('01')) {
-				invoiceMetadata = InvoiceMetadata.readString(line);
+				data = InvoiceMetadata.readString(line);
 			}
 			if (line.startsWith('02')) {
-				patient = Patient.readString(line);
+				data = Patient.readString(line);
 			}
 			if (line.startsWith('04')) {
-				record = PrestatieRecord.readString(line);
+				data = PrestatieRecord.readString(line);
 			}
 			if (line.startsWith('99')) {
-				closingRecord = SluitRecord.readString(line);
+				data = SluitRecord.readString(line);
 			}
+			rows = [...rows, data];
 		});
 	}
 </script>
@@ -52,10 +54,18 @@
 		volgens AW319-1.4 betekend het dit (klik om naar vektis pagina te gaan hiervan)</a
 	>
 </p>
-<InvoiceMetatdataInformation {invoiceMetadata} />
-<PatientInformation {patient} />
-<PrestatieInformation {record} />
-<InvoiceClosingRecord record={closingRecord} />
+
+{#each rows as row}
+	{#if row instanceof InvoiceMetadata}
+		<InvoiceMetatdataInformation invoiceMetadata={row} />
+	{:else if row instanceof Patient}
+		<PatientInformation patient={row} />
+	{:else if row instanceof PrestatieRecord}
+		<PrestatieInformation record={row} />
+	{:else if row instanceof SluitRecord}
+		<InvoiceClosingRecord record={row} />
+	{/if}
+{/each}
 
 <!-- <button on:click={copy}>kopieer naar klembord</button> -->
 

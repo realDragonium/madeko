@@ -1,5 +1,16 @@
 <script lang="ts">
 	import type { PrestatieRecord } from '$lib/domain/prestatie_record';
+	import VektisCode from './VektisCode.svelte';
+	import { VektisCareType } from './domain/vektis/care_types';
+	import {
+		VektisActivityType,
+		VektisDebitOrCredit,
+		VektisForwarding,
+		VektisTimeUnit
+	} from './domain/vektis/code';
+	import { VektisGovernmentInstitutes } from './domain/vektis/govenment_institutes';
+	import { VektisNurseSpecialism } from './domain/vektis/nurse_specialisms';
+	import { VektisPrestationType } from './domain/vektis/prestation_types';
 	export let record: PrestatieRecord;
 
 	function handleOnSubmit(event: Event) {
@@ -31,14 +42,16 @@
 			Machtingsnummer
 			<input type="text" bind:value={record.machtingsnummer} />
 		</label>
-		<label>
-			Doorsturen toegestaan
-			<input type="text" bind:value={record.doorsturen_allowed} />
-		</label>
-		<label>
-			Code indicatieorgaan
-			<input type="text" bind:value={record.code_indication_orgaan} />
-		</label>
+		<VektisCode
+			label={'Doorsturen toegestaan'}
+			id={record.doorsturen_allowed}
+			collection={VektisForwarding}
+		/>
+		<VektisCode
+			label={'indicatieorgaan'}
+			id={record.code_indication_orgaan}
+			collection={VektisGovernmentInstitutes}
+		/>
 		<label>
 			client nummber indicatieorgaan
 			<input type="text" bind:value={record.client_number_indication_orgaan} />
@@ -51,14 +64,12 @@
 			indicatie besluit nummer indicatieorgaan
 			<input type="text" bind:value={record.indicatie_aanvraag_response_number} />
 		</label>
-		<label>
-			functie code
-			<input type="text" bind:value={record.functie_code} />
-		</label>
-		<label>
-			Zorgzwaartepakketcode
-			<input type="text" bind:value={record.zorg_zwaarte_pakket_code} />
-		</label>
+		<VektisCode label={'functie code'} id={record.functie_code} collection={VektisActivityType} />
+		<VektisCode
+			label={'Zorgzwaartepakketcode'}
+			id={record.zorg_zwaarte_pakket_code}
+			collection={VektisCareType}
+		/>
 		<label>
 			Begindatum (YYYYMMDD)
 			<input
@@ -79,38 +90,42 @@
 				pattern="[0-9]&#123;8&#123;"
 			/>
 		</label>
+		<VektisCode
+			label={'Aanduiding prestatiecodelijst'}
+			id={record.aanduiding_presetatie_code_lijst}
+			collection={VektisPrestationType}
+		/>
 		<label>
-			Aanduiding prestatiecodelijst
-			<input type="text" bind:value={record.aanduiding_presetatie_code_lijst} />
-		</label>
-		<label>
-			prestatiecode
+			Prestatiecode
 			<input type="text" bind:value={record.prestatie_code} />
 		</label>
 		<label>
 			aantal uitgevoerde prestaties
 			<input type="text" bind:value={record.quantity_prestatie} />
 		</label>
-		<label>
-			tijdseenheid zorgperiode
-			<input type="text" bind:value={record.time_unit_per_prestatie} />
-		</label>
+		<VektisCode
+			label={'Tijdseenheid zorgperiode'}
+			id={record.time_unit_per_prestatie}
+			collection={VektisTimeUnit}
+		/>
 		<label>
 			zorgverlenerscode behandelaar/uitvoerder
 			<input type="text" bind:value={record.nurse_behandelaar_code} />
 		</label>
-		<label>
-			Specialisme behandelaar/uitvoerder
-			<input type="text" bind:value={record.specialism_behandelaar_code} />
-		</label>
+		<VektisCode
+			label={'Specialisme behandelaar/uitvoerder'}
+			id={record.specialism_behandelaar_code}
+			collection={VektisNurseSpecialism}
+		/>
 		<label>
 			zorgverlenerscode voorschrijver/verwijzer
 			<input type="text" bind:value={record.nurse_voorschrijver_code} />
 		</label>
-		<label>
-			Specialisme voorschrijver/verwijzer
-			<input type="text" bind:value={record.specialism_voorschrijver_code} />
-		</label>
+		<VektisCode
+			label={'Specialisme voorschrijver/verwijzer'}
+			id={record.specialism_voorschrijver_code}
+			collection={VektisNurseSpecialism}
+		/>
 		<label>
 			verrekenpercentage
 			<input type="text" bind:value={record.verreken_percentage} />
@@ -123,6 +138,11 @@
 			Berekend bedrag (inlc. btw)
 			<input type="text" bind:value={record.calculated_sum_prestatie} />
 		</label>
+		<VektisCode
+			label={'Indicatie debet/credit O1'}
+			id={record.indicat_debit_or_credit}
+			collection={VektisDebitOrCredit}
+		/>
 		<label>
 			indicatie debet/credit (o1)
 			<input type="text" bind:value={record.indicat_debit_or_credit} />
@@ -135,10 +155,11 @@
 			declaratiebedrag (incl. btw)
 			<input type="text" bind:value={record.declaration_sum} />
 		</label>
-		<label>
-			indicatie debet/credit (o2)
-			<input type="text" bind:value={record.indicat_debit_or_credit_02} />
-		</label>
+		<VektisCode
+			label={'Indicatie debet/credit O2'}
+			id={record.indicat_debit_or_credit_02}
+			collection={VektisDebitOrCredit}
+		/>
 		<label>
 			Referentienummer dit prestatierecord
 			<input type="text" bind:value={record.refention_number_this_prestatie} />

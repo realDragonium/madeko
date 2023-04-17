@@ -1,5 +1,9 @@
 <script lang="ts">
 	import type { InvoiceMetadata } from '$lib/domain/invoice_metadata';
+	import { VektisIntegrationMessageTypes } from '$lib/domain/vektis/integration_message_types';
+	import VektisCode from './VektisCode.svelte';
+	import { VektisMessageType, VektisPaymentTo, VektisValuta } from './domain/vektis/code';
+	import { VektisSoftwareProvidersCodes } from './domain/vektis/software_providers';
 
 	export let invoiceMetadata: InvoiceMetadata;
 
@@ -12,10 +16,11 @@
 <section>
 	<h2>01 - Factuur informatie</h2>
 	<form on:submit={handleOnSubmit}>
-		<label>
-			Code externe-integratiebericht
-			<input type="text" bind:value={invoiceMetadata.id_extneral_integration_message} />
-		</label>
+		<VektisCode
+			label={'Code externe-integratiebericht'}
+			id={invoiceMetadata.id_extneral_integration_message}
+			collection={VektisIntegrationMessageTypes}
+		/>
 
 		<label>
 			Standaardisatie versie
@@ -25,11 +30,16 @@
 			Standaardisatie sub versie
 			<input type="text" bind:value={invoiceMetadata.version_standard} />
 		</label>
-
-		<label>
-			Softwaresystem id
-			<input type="text" bind:value={invoiceMetadata.code_software_system} />
-		</label>
+		<VektisCode
+			label={'Soort bericht'}
+			id={invoiceMetadata.message_type}
+			collection={VektisMessageType}
+		/>
+		<VektisCode
+			label={'Code informatiesysteem softwareleverancier'}
+			id={invoiceMetadata.code_software_system}
+			collection={VektisSoftwareProvidersCodes}
+		/>
 		<label>
 			Software system versie
 			<input type="text" bind:value={invoiceMetadata.version_software_system} />
@@ -56,6 +66,11 @@
 			instelling code
 			<input type="text" bind:value={invoiceMetadata.instelling_code} />
 		</label>
+		<VektisCode
+			label={'Identificatiecode betaling aan'}
+			id={invoiceMetadata.id_payment_to}
+			collection={VektisPaymentTo}
+		/>
 		<label>
 			Begin date invoice period (YYYYMMDD)
 			<input
@@ -94,10 +109,7 @@
 			btw-id
 			<input type="text" bind:value={invoiceMetadata.btw_id_code} />
 		</label>
-		<label>
-			Valuta
-			<input type="text" bind:value={invoiceMetadata.valuta_code} />
-		</label>
+		<VektisCode label={'Valuta'} id={invoiceMetadata.valuta_code} collection={VektisValuta} />
 		<label>
 			Reserve
 			<input type="text" bind:value={invoiceMetadata.reserved} />

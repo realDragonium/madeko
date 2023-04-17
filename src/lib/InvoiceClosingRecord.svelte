@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { SluitRecord } from '$lib/domain/invoice_closing_data';
+	import VektisCode from './VektisCode.svelte';
+	import { VektisDebitOrCredit } from './domain/vektis/code';
 
 	export let record: SluitRecord;
 
@@ -36,10 +38,11 @@
 			Totaal declaratie bedrag
 			<input type="text" bind:value={record.total_declaration_amount} />
 		</label>
-		<label>
-			Indicatie debet/credit
-			<input type="text" bind:value={record.indicatie_debet_or_credit} />
-		</label>
+		<VektisCode
+			label={'Indicatie debet/credit'}
+			id={record.indicatie_debet_or_credit}
+			collection={VektisDebitOrCredit}
+		/>
 		<label>
 			Reserve
 			<input type="text" bind:value={record.reserved} />

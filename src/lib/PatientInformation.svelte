@@ -1,6 +1,9 @@
 <script lang="ts">
-	import { Gender } from '$lib/domain/gender';
 	import type { Patient } from '$lib/domain/patient';
+	import VektisCode from './VektisCode.svelte';
+	import { VektisClientDeceased, VektisGender } from './domain/vektis/code';
+	import { VektisCountry } from './domain/vektis/countries';
+	import { VektisGovernmentInstitutes } from './domain/vektis/govenment_institutes';
 
 	export let patient: Patient;
 
@@ -31,25 +34,19 @@
 				pattern="[0-9]&#123;8&#123;"
 			/>
 		</label>
-		<label>
-			Geslacht
-			<input type="text" value={Gender[parseInt(patient.gender)]} />
-		</label>
+		<VektisCode label={'Geslacht'} id={patient.gender} collection={VektisGender} />
 		<label>
 			Naam verkerde
 			<input type="text" bind:value={patient.name_o1} maxlength="25" />
 		</label>
-
 		<label>
 			Tussenvoegsel verzekerde
 			<input type="text" bind:value={patient.name_inbetween_o1} maxlength="25" />
 		</label>
-
 		<label>
 			Initials verzekerde
 			<input type="text" bind:value={patient.first_name_initial} maxlength="6" />
 		</label>
-
 		<label>
 			Postcode
 			<input type="text" bind:value={patient.zip_code} maxlength="6" />
@@ -63,16 +60,17 @@
 			Huisnummer (suffix)
 			<input type="text" bind:value={patient.house_number_appendix} maxlength="6" />
 		</label>
-		<fieldset>
-			<label>
-				De patient is niet overleden
-				<input type="radio" bind:group={patient.did_patient_die} value="2" />
-			</label>
-			<label>
-				De patient is overleden
-				<input type="radio" bind:group={patient.did_patient_die} value="1" />
-			</label>
-		</fieldset>
+		<VektisCode label={'Land verzekerde'} id={patient.country_code} collection={VektisCountry} />
+		<VektisCode
+			label={'Indicatie client overleden'}
+			id={patient.did_patient_die}
+			collection={VektisClientDeceased}
+		/>
+		<VektisCode
+			label={'Indicatieorgaan'}
+			id={patient.orginasation_code}
+			collection={VektisGovernmentInstitutes}
+		/>
 		<label>
 			Reserve
 			<input type="text" bind:value={patient.reserved} />
