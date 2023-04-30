@@ -7,7 +7,7 @@
 	import { VektisSoftwareProvidersCodes } from './domain/vektis/software_providers';
 
 	export let invoiceMetadata: InvoiceMetadata;
-	export let freeze = false;
+	export let disabled = false;
 
 	function handleOnSubmit(event: Event) {
 		event.preventDefault();
@@ -22,7 +22,7 @@
 			label={'Code externe-integratiebericht'}
 			id={invoiceMetadata.id_extneral_integration_message}
 			collection={VektisIntegrationMessageTypes}
-			disabled={freeze}
+			{disabled}
 			required
 		/>
 		<label>
@@ -37,84 +37,84 @@
 			label={'Soort bericht'}
 			id={invoiceMetadata.message_type}
 			collection={VektisMessageType}
-			disabled={freeze}
+			{disabled}
 			required
 		/>
 		<VektisCode
 			label={'Code informatiesysteem softwareleverancier'}
 			id={invoiceMetadata.code_software_system}
 			collection={VektisSoftwareProvidersCodes}
-			disabled={freeze}
+			{disabled}
 		/>
 		<label>
 			Software system versie
-			<input type="text" bind:value={invoiceMetadata.version_software_system} disabled={freeze} />
+			<input type="text" bind:value={invoiceMetadata.version_software_system} {disabled} />
 		</label>
 
 		<label>
 			Uzovi
-			<input type="text" bind:value={invoiceMetadata.uzovi} disabled={freeze} />
+			<input type="text" bind:value={invoiceMetadata.uzovi} {disabled} />
 		</label>
 
 		<label>
 			servicebureau code
-			<input type="text" bind:value={invoiceMetadata.service_provider_code} disabled={freeze} />
+			<input type="text" bind:value={invoiceMetadata.service_provider_code} {disabled} />
 		</label>
 		<label>
 			verzorger code
-			<input type="text" bind:value={invoiceMetadata.nurse_code} disabled={freeze} />
+			<input type="text" bind:value={invoiceMetadata.nurse_code} {disabled} />
 		</label>
 		<label>
 			praktijk code
-			<input type="text" bind:value={invoiceMetadata.praktijk_code} disabled={freeze} />
+			<input type="text" bind:value={invoiceMetadata.praktijk_code} {disabled} />
 		</label>
 		<label>
 			instelling code
-			<input type="text" bind:value={invoiceMetadata.instelling_code} disabled={freeze} />
+			<input type="text" bind:value={invoiceMetadata.instelling_code} {disabled} />
 		</label>
 		<VektisCode
 			label={'Identificatiecode betaling aan'}
 			id={invoiceMetadata.id_payment_to}
 			collection={VektisPaymentTo}
-			disabled={freeze}
+			{disabled}
 			required
 		/>
 		<TimestampInput
 			text={'Begindatum declaratieperiode (YYYYMMDD)'}
 			required
-			{freeze}
+			{disabled}
 			bind:data={invoiceMetadata.start_date_invoice_period}
 		/>
 		<TimestampInput
 			text={'Einddatum declaratieperiode (YYYYMMDD)'}
 			required
-			{freeze}
+			{disabled}
 			bind:data={invoiceMetadata.end_date_invoice_period}
 		/>
 		<label>
 			Factuurnummer declarant
-			<input type="text" bind:value={invoiceMetadata.invoice_id} required disabled={freeze} />
+			<input type="text" bind:value={invoiceMetadata.invoice_id} required {disabled} />
 		</label>
 		<TimestampInput
 			text={'Dagtekening factuur (YYYYMMDD)'}
 			required
-			{freeze}
+			{disabled}
 			bind:data={invoiceMetadata.invoice_date}
 		/>
 		<label>
 			btw-id
-			<input type="text" bind:value={invoiceMetadata.btw_id_code} disabled={freeze} />
+			<input type="text" bind:value={invoiceMetadata.btw_id_code} {disabled} />
 		</label>
 		<VektisCode
 			label={'Valuta'}
 			id={invoiceMetadata.valuta_code}
 			collection={VektisValuta}
-			disabled={freeze}
+			{disabled}
 			required
 		/>
 		<label>
 			Reserve
-			<input type="text" bind:value={invoiceMetadata.reserved} disabled={freeze} />
+			<input type="text" bind:value={invoiceMetadata.reserved} {disabled} />
 		</label>
 	</form>
 </section>

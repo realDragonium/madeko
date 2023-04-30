@@ -57,11 +57,11 @@
 
 {#each rows as row}
 	{#if row instanceof InvoiceMetadata}
-		<InvoiceMetatdataInformation invoiceMetadata={row} freeze={true} />
+		<InvoiceMetatdataInformation invoiceMetadata={row} disabled={true} />
 	{:else if row instanceof Patient}
 		<PatientInformation patient={row} disbaled={true} />
 	{:else if row instanceof PrestatieRecord}
-		<PrestatieInformation record={row} freeze={true} />
+		<PrestatieInformation record={row} disabled={true} />
 	{:else if row instanceof SluitRecord}
 		<InvoiceClosingRecord record={row} freeze={true} />
 	{/if}

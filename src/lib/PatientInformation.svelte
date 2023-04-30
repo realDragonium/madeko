@@ -28,7 +28,7 @@
 		</label>
 		<TimestampInput
 			text={'Birthday (YYYYMMDD)'}
-			freeze={disbaled}
+			disabled={disbaled}
 			requiredw
 			bind:data={patient.birth_day_string}
 		/>
