@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { InvoiceMetadata } from '$lib/domain/invoice_metadata';
 	import { VektisIntegrationMessageTypes } from '$lib/domain/vektis/integration_message_types';
+	import TimestampInput from './TimestampInput.svelte';
 	import VektisCode from './VektisCode.svelte';
 	import { VektisMessageType, VektisPaymentTo, VektisValuta } from './domain/vektis/code';
 	import { VektisSoftwareProvidersCodes } from './domain/vektis/software_providers';
@@ -22,21 +23,22 @@
 			id={invoiceMetadata.id_extneral_integration_message}
 			collection={VektisIntegrationMessageTypes}
 			disabled={freeze}
+			required
 		/>
-
 		<label>
 			Standaardisatie versie
-			<input type="text" bind:value={invoiceMetadata.version_standard} disabled={freeze} />
+			<input type="text" bind:value={invoiceMetadata.version_standard} required disabled={true} />
 		</label>
 		<label>
 			Standaardisatie sub versie
-			<input type="text" bind:value={invoiceMetadata.version_standard} disabled={freeze} />
+			<input type="text" bind:value={invoiceMetadata.version_standard} disabled={true} />
 		</label>
 		<VektisCode
 			label={'Soort bericht'}
 			id={invoiceMetadata.message_type}
 			collection={VektisMessageType}
 			disabled={freeze}
+			required
 		/>
 		<VektisCode
 			label={'Code informatiesysteem softwareleverancier'}
@@ -75,44 +77,30 @@
 			id={invoiceMetadata.id_payment_to}
 			collection={VektisPaymentTo}
 			disabled={freeze}
+			required
+		/>
+		<TimestampInput
+			text={'Begindatum declaratieperiode (YYYYMMDD)'}
+			required
+			{freeze}
+			bind:data={invoiceMetadata.start_date_invoice_period}
+		/>
+		<TimestampInput
+			text={'Einddatum declaratieperiode (YYYYMMDD)'}
+			required
+			{freeze}
+			bind:data={invoiceMetadata.end_date_invoice_period}
 		/>
 		<label>
-			Begin date invoice period (YYYYMMDD)
-			<input
-				type="text"
-				bind:value={invoiceMetadata.start_date_invoice_period}
-				maxlength="8"
-				minlength="8"
-				pattern="[0-9]&#123;8&#123;"
-				disabled={freeze}
-			/>
+			Factuurnummer declarant
+			<input type="text" bind:value={invoiceMetadata.invoice_id} required disabled={freeze} />
 		</label>
-		<label>
-			End date invoice period (YYYYMMDD)
-			<input
-				type="text"
-				bind:value={invoiceMetadata.end_date_invoice_period}
-				maxlength="8"
-				minlength="8"
-				pattern="[0-9]&#123;8&#123;"
-				disabled={freeze}
-			/>
-		</label>
-		<label>
-			invoice-id
-			<input type="text" bind:value={invoiceMetadata.invoice_id} disabled={freeze} />
-		</label>
-		<label>
-			invoice date (YYYYMMDD)
-			<input
-				type="text"
-				bind:value={invoiceMetadata.invoice_date}
-				maxlength="8"
-				minlength="8"
-				pattern="[0-9]&#123;8&#123;"
-				disabled={freeze}
-			/>
-		</label>
+		<TimestampInput
+			text={'Dagtekening factuur (YYYYMMDD)'}
+			required
+			{freeze}
+			bind:data={invoiceMetadata.invoice_date}
+		/>
 		<label>
 			btw-id
 			<input type="text" bind:value={invoiceMetadata.btw_id_code} disabled={freeze} />
@@ -122,12 +110,12 @@
 			id={invoiceMetadata.valuta_code}
 			collection={VektisValuta}
 			disabled={freeze}
+			required
 		/>
 		<label>
 			Reserve
 			<input type="text" bind:value={invoiceMetadata.reserved} disabled={freeze} />
 		</label>
-		<!-- <button style="grid-column: span 2; width: 50%;">Check</button> -->
 	</form>
 </section>
 

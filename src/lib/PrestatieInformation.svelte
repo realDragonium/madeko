@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PrestatieRecord } from '$lib/domain/prestatie_record';
+	import TimestampInput from './TimestampInput.svelte';
 	import VektisCode from './VektisCode.svelte';
 	import { VektisCareType } from './domain/vektis/care_types';
 	import {
@@ -11,12 +12,12 @@
 	import { VektisGovernmentInstitutes } from './domain/vektis/govenment_institutes';
 	import { VektisNurseSpecialism } from './domain/vektis/nurse_specialisms';
 	import { VektisPrestationType } from './domain/vektis/prestation_types';
+
 	export let record: PrestatieRecord;
 	export let freeze = false;
 
 	function handleOnSubmit(event: Event) {
 		event.preventDefault();
-		console.log('Validated?!');
 	}
 </script>
 
@@ -25,15 +26,15 @@
 	<form on:submit={handleOnSubmit}>
 		<label>
 			ID details
-			<input type="text" bind:value={record.id_detail_record} disabled={freeze} />
+			<input type="text" bind:value={record.id_detail_record} disabled={freeze} required />
 		</label>
 		<label>
 			Patient BSN
-			<input type="text" bind:value={record.bsn_patient} disabled={freeze} />
+			<input type="text" bind:value={record.bsn_patient} disabled={freeze} required />
 		</label>
 		<label>
 			Uzovi
-			<input type="text" bind:value={record.uzovi} disabled={freeze} />
+			<input type="text" bind:value={record.uzovi} required disabled={freeze} />
 		</label>
 		<label>
 			Patient verzekeringsnummer
@@ -45,13 +46,14 @@
 		</label>
 		<VektisCode
 			label={'Doorsturen toegestaan'}
-			id={record.doorsturen_allowed}
+			bind:id={record.doorsturen_allowed}
 			collection={VektisForwarding}
 			disabled={freeze}
+			required
 		/>
 		<VektisCode
 			label={'indicatieorgaan'}
-			id={record.code_indication_orgaan}
+			bind:id={record.code_indication_orgaan}
 			collection={VektisGovernmentInstitutes}
 			disabled={freeze}
 		/>
@@ -69,65 +71,51 @@
 		</label>
 		<VektisCode
 			label={'functie code'}
-			id={record.functie_code}
+			bind:id={record.functie_code}
 			collection={VektisActivityType}
 			disabled={freeze}
 		/>
 		<VektisCode
 			label={'Zorgzwaartepakketcode'}
-			id={record.zorg_zwaarte_pakket_code}
+			bind:id={record.zorg_zwaarte_pakket_code}
 			collection={VektisCareType}
 			disabled={freeze}
 		/>
-		<label>
-			Begindatum (YYYYMMDD)
-			<input
-				type="text"
-				bind:value={record.start_date}
-				maxlength="8"
-				minlength="8"
-				pattern="[0-9]&#123;8&#123;"
-				disabled={freeze}
-			/>
-		</label>
-		<label>
-			Enddatum (YYYYMMDD)
-			<input
-				type="text"
-				bind:value={record.end_date}
-				maxlength="8"
-				minlength="8"
-				pattern="[0-9]&#123;8&#123;"
-				disabled={freeze}
-			/>
-		</label>
+		<TimestampInput
+			text="{'Begindatum (YYYYMMDD)'},"
+			bind:data={record.start_data}
+			{freeze}
+			required
+		/>
+		<TimestampInput text="{'Enddatum (YYYYMMDD)'}," bind:data={record.end_date} {freeze} required />
 		<VektisCode
 			label={'Aanduiding prestatiecodelijst'}
-			id={record.aanduiding_presetatie_code_lijst}
+			bind:id={record.aanduiding_presetatie_code_lijst}
 			collection={VektisPrestationType}
 			disabled={freeze}
+			required
 		/>
 		<label>
 			Prestatiecode
-			<input type="text" bind:value={record.prestatie_code} disabled={freeze} />
+			<input type="text" bind:value={record.prestatie_code} required disabled={freeze} />
 		</label>
 		<label>
 			aantal uitgevoerde prestaties
-			<input type="text" bind:value={record.quantity_prestatie} disabled={freeze} />
+			<input type="text" bind:value={record.quantity_prestatie} required disabled={freeze} />
 		</label>
 		<VektisCode
 			label={'Tijdseenheid zorgperiode'}
-			id={record.time_unit_per_prestatie}
+			bind:id={record.time_unit_per_prestatie}
 			collection={VektisTimeUnit}
 			disabled={freeze}
 		/>
 		<label>
 			zorgverlenerscode behandelaar/uitvoerder
-			<input type="text" bind:value={record.nurse_behandelaar_code} disabled={freeze} />
+			<input type="text" bind:value={record.nurse_behandelaar_code} required disabled={freeze} />
 		</label>
 		<VektisCode
 			label={'Specialisme behandelaar/uitvoerder'}
-			id={record.specialism_behandelaar_code}
+			bind:id={record.specialism_behandelaar_code}
 			collection={VektisNurseSpecialism}
 			disabled={freeze}
 		/>
@@ -137,7 +125,7 @@
 		</label>
 		<VektisCode
 			label={'Specialisme voorschrijver/verwijzer'}
-			id={record.specialism_voorschrijver_code}
+			bind:id={record.specialism_voorschrijver_code}
 			collection={VektisNurseSpecialism}
 			disabled={freeze}
 		/>
@@ -147,39 +135,42 @@
 		</label>
 		<label>
 			tarief prestatie (inlc. btw)
-			<input type="text" bind:value={record.tarief_prestatie} disabled={freeze} />
+			<input type="text" bind:value={record.tarief_prestatie} required disabled={freeze} />
 		</label>
 		<label>
 			Berekend bedrag (inlc. btw)
-			<input type="text" bind:value={record.calculated_sum_prestatie} disabled={freeze} />
+			<input type="text" bind:value={record.calculated_sum_prestatie} required disabled={freeze} />
 		</label>
 		<VektisCode
 			label={'Indicatie debet/credit O1'}
-			id={record.indicat_debit_or_credit}
+			bind:id={record.indicat_debit_or_credit}
 			collection={VektisDebitOrCredit}
 			disabled={freeze}
+			required
 		/>
-		<label>
-			indicatie debet/credit (o1)
-			<input type="text" bind:value={record.indicat_debit_or_credit} disabled={freeze} />
-		</label>
 		<label>
 			btw percentage declaratiebedrag
 			<input type="text" bind:value={record.btw_percentage} disabled={freeze} />
 		</label>
 		<label>
 			declaratiebedrag (incl. btw)
-			<input type="text" bind:value={record.declaration_sum} disabled={freeze} />
+			<input type="text" bind:value={record.declaration_sum} required disabled={freeze} />
 		</label>
 		<VektisCode
 			label={'Indicatie debet/credit O2'}
-			id={record.indicat_debit_or_credit_02}
+			bind:id={record.indicat_debit_or_credit_02}
 			collection={VektisDebitOrCredit}
 			disabled={freeze}
+			required
 		/>
 		<label>
 			Referentienummer dit prestatierecord
-			<input type="text" bind:value={record.refention_number_this_prestatie} disabled={freeze} />
+			<input
+				type="text"
+				bind:value={record.refention_number_this_prestatie}
+				required
+				disabled={freeze}
+			/>
 		</label>
 		<label>
 			Referentienummer voorgaande gerelateerde prestatierecord
@@ -189,8 +180,6 @@
 				disabled={freeze}
 			/>
 		</label>
-
-		<!-- <button style="grid-column: span 2; width: 50%;">Check</button> -->
 	</form>
 </section>
 

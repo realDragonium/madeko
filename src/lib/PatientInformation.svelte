@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { Patient } from '$lib/domain/patient';
+	import TimestampInput from './TimestampInput.svelte';
 	import VektisCode from './VektisCode.svelte';
-	import { VektisClientDeceased, VektisGender } from './domain/vektis/code';
+	import { VektisClientDeceased, VektisGender, VektisNameUsage } from './domain/vektis/code';
 	import { VektisCountry } from './domain/vektis/countries';
 	import { VektisGovernmentInstitutes } from './domain/vektis/govenment_institutes';
 
 	export let patient: Patient;
-	export let freeze = false;
+	export let disbaled = false;
 
 	function handleOnSubmit(event: Event) {
 		event.preventDefault();
@@ -19,49 +20,63 @@
 	<form on:submit={handleOnSubmit}>
 		<label>
 			BSN
-			<input type="text" bind:value={patient.bsn} maxlength="9" disabled={freeze} />
+			<input type="text" bind:value={patient.bsn} maxlength="9" required disabled={disbaled} />
 		</label>
 		<label>
 			Uzovi
-			<input type="text" bind:value={patient.uzovi} maxlength="4" disabled={freeze} />
+			<input type="text" bind:value={patient.uzovi} maxlength="4" required disabled={disbaled} />
 		</label>
-		<label>
-			Birthday (YYYYMMDD)
-			<input
-				type="text"
-				bind:value={patient.birth_day_string}
-				maxlength="8"
-				minlength="8"
-				disabled={freeze}
-				pattern="[0-9]&#123;8&#123;"
-			/>
-		</label>
+		<TimestampInput
+			text={'Birthday (YYYYMMDD)'}
+			freeze={disbaled}
+			requiredw
+			bind:data={patient.birth_day_string}
+		/>
 		<VektisCode
 			label={'Geslacht'}
-			id={patient.gender}
+			bind:id={patient.gender}
 			collection={VektisGender}
-			disabled={freeze}
+			disabled={disbaled}
+			required
+		/>
+		<VektisCode
+			label={'Naamcode/Naamgebruik (01)'}
+			bind:id={patient.name_code_o1}
+			collection={VektisNameUsage}
+			disabled={disbaled}
+			required
 		/>
 		<label>
 			Naam verkerde
-			<input type="text" bind:value={patient.name_o1} maxlength="25" disabled={freeze} />
+			<input type="text" bind:value={patient.name_o1} maxlength="25" required disabled={disbaled} />
 		</label>
 		<label>
 			Tussenvoegsel verzekerde
-			<input type="text" bind:value={patient.name_inbetween_o1} maxlength="25" disabled={freeze} />
+			<input
+				type="text"
+				bind:value={patient.name_inbetween_o1}
+				maxlength="25"
+				disabled={disbaled}
+			/>
 		</label>
 		<label>
-			Initials verzekerde
-			<input type="text" bind:value={patient.first_name_initial} maxlength="6" disabled={freeze} />
+			Voorletters verzekerde
+			<input
+				type="text"
+				bind:value={patient.first_name_initial}
+				maxlength="6"
+				required
+				disabled={disbaled}
+			/>
 		</label>
 		<label>
 			Postcode
-			<input type="text" bind:value={patient.zip_code} maxlength="6" disabled={freeze} />
+			<input type="text" bind:value={patient.zip_code} maxlength="6" disabled={disbaled} />
 		</label>
 
 		<label>
 			Huisnummer
-			<input type="text" bind:value={patient.house_number} maxlength="5" disabled={freeze} />
+			<input type="text" bind:value={patient.house_number} maxlength="5" disabled={disbaled} />
 		</label>
 		<label>
 			Huisnummer (suffix)
@@ -69,30 +84,31 @@
 				type="text"
 				bind:value={patient.house_number_appendix}
 				maxlength="6"
-				disabled={freeze}
+				disabled={disbaled}
 			/>
 		</label>
 		<VektisCode
 			label={'Land verzekerde'}
-			id={patient.country_code}
+			bind:id={patient.country_code}
 			collection={VektisCountry}
-			disabled={freeze}
+			disabled={disbaled}
 		/>
 		<VektisCode
 			label={'Indicatie client overleden'}
-			id={patient.did_patient_die}
+			bind:id={patient.did_patient_die}
 			collection={VektisClientDeceased}
-			disabled={freeze}
+			disabled={disbaled}
+			required
 		/>
 		<VektisCode
 			label={'Indicatieorgaan'}
-			id={patient.orginasation_code}
+			bind:id={patient.orginasation_code}
 			collection={VektisGovernmentInstitutes}
-			disabled={freeze}
+			disabled={disbaled}
 		/>
 		<label>
 			Reserve
-			<input type="text" bind:value={patient.reserved} disabled={freeze} />
+			<input type="text" bind:value={patient.reserved} disabled={disbaled} />
 		</label>
 		<!-- <button style="grid-column: span 2; width: 50%;">Check</button> -->
 	</form>
