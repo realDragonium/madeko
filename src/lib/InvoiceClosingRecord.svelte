@@ -4,6 +4,7 @@
 	import { VektisDebitOrCredit } from './domain/vektis/code';
 
 	export let record: SluitRecord;
+	export let freeze = false;
 
 	function handleOnSubmit(event: Event) {
 		event.preventDefault();
@@ -16,36 +17,37 @@
 	<form on:submit={handleOnSubmit}>
 		<label>
 			Aantal verzekerdenrecords
-			<input type="text" bind:value={record.quantity_patients_records} />
+			<input type="text" bind:value={record.quantity_patients_records} disabled={freeze} />
 		</label>
 		<label>
 			aantal debiteurrecords
-			<input type="text" bind:value={record.quantity_debit_records} />
+			<input type="text" bind:value={record.quantity_debit_records} disabled={freeze} />
 		</label>
 		<label>
 			Aantal restatierecords
-			<input type="text" bind:value={record.quantity_prestation_records} />
+			<input type="text" bind:value={record.quantity_prestation_records} disabled={freeze} />
 		</label>
 		<label>
 			Aantal Commentaarrecords
-			<input type="text" bind:value={record.quantity_comment_records} />
+			<input type="text" bind:value={record.quantity_comment_records} disabled={freeze} />
 		</label>
 		<label>
 			Totaal aantal detailrecords
-			<input type="text" bind:value={record.total_quantity_detail_records} />
+			<input type="text" bind:value={record.total_quantity_detail_records} disabled={freeze} />
 		</label>
 		<label>
 			Totaal declaratie bedrag
-			<input type="text" bind:value={record.total_declaration_amount} />
+			<input type="text" bind:value={record.total_declaration_amount} disabled={freeze} />
 		</label>
 		<VektisCode
 			label={'Indicatie debet/credit'}
 			id={record.indicatie_debet_or_credit}
 			collection={VektisDebitOrCredit}
+			disabled={freeze}
 		/>
 		<label>
 			Reserve
-			<input type="text" bind:value={record.reserved} />
+			<input type="text" bind:value={record.reserved} disabled={freeze} />
 		</label>
 		<!-- <button style="grid-column: span 2; width: 50%;">Check</button> -->
 	</form>
