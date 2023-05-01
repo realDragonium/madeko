@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Its an applcation meant to create invoice conforming the standards of [AW-319](https://www.vektis.nl/standaardisatie/standaarden/AW319-1.4) If youre not familair with it, dont worry you likely won't need to use it.
+Its an applcation meant to create EI files (invoice) conforming the standards of [AW-319](https://www.vektis.nl/standaardisatie/standaarden/AW319-1.4). If youre not familair with it, dont worry you likely won't need to use it.
 
 ## Run
 
@@ -10,10 +10,8 @@ Its an applcation meant to create invoice conforming the standards of [AW-319](h
 script/serve
 ```
 
-### WIP
 
 ### Template readme left over
-
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
