@@ -70,8 +70,14 @@
 			/>
 		</label>
 		<label>
-			Postcode
-			<input type="text" bind:value={patient.zip_code} maxlength="6" disabled={disbaled} />
+			Postcode (NNNNAA)
+			<input
+				type="text"
+				bind:value={patient.zip_code}
+				maxlength="6"
+				pattern="[0-9]&#123;4&#125;[a-zA-Z]&#123;2&#125;"
+				disabled={disbaled}
+			/>
 		</label>
 
 		<label>

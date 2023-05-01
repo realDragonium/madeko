@@ -54,26 +54,26 @@ export class InvoiceMetadata {
 
 	public get EIString(): string {
 		const entries = [
-			new EIFlatFileRowSection('01', 2),
-			new EIFlatFileRowSection(this.id_external_integration_message, 3),
-			new EIFlatFileRowSection(this.version_standard, 2),
-			new EIFlatFileRowSection(this.sub_version_standard, 2),
-			new EIFlatFileRowSection(this.message_type, 1),
-			new EIFlatFileRowSection(this.code_software_system, 6),
-			new EIFlatFileRowSection(this.version_software_system, 10),
-			new EIFlatFileRowSection(this.uzovi, 4),
-			new EIFlatFileRowSection(this.service_provider_code, 8),
-			new EIFlatFileRowSection(this.nurse_code, 8),
-			new EIFlatFileRowSection(this.praktijk_code, 8),
-			new EIFlatFileRowSection(this.instelling_code, 8),
-			new EIFlatFileRowSection(this.id_payment_to, 2),
-			new EIFlatFileRowSection(this.start_date_invoice_period, 8),
-			new EIFlatFileRowSection(this.end_date_invoice_period, 8),
-			new EIFlatFileRowSection(this.invoice_id, 12),
-			new EIFlatFileRowSection(this.invoice_date, 8),
-			new EIFlatFileRowSection(this.btw_id_code, 14),
-			new EIFlatFileRowSection(this.valuta_code, 3),
-			new EIFlatFileRowSection(this.reserved, 193)
+			new EIFlatFileRowSection('01', 2, 'N'),
+			new EIFlatFileRowSection(this.id_external_integration_message, 3, 'N'),
+			new EIFlatFileRowSection(this.version_standard, 2, 'N'),
+			new EIFlatFileRowSection(this.sub_version_standard, 2, 'N'),
+			new EIFlatFileRowSection(this.message_type, 1, 'AN'),
+			new EIFlatFileRowSection(this.code_software_system, 6, 'N'),
+			new EIFlatFileRowSection(this.version_software_system, 10, 'AN'),
+			new EIFlatFileRowSection(this.uzovi, 4, 'N'),
+			new EIFlatFileRowSection(this.service_provider_code, 8, 'N'),
+			new EIFlatFileRowSection(this.nurse_code, 8, 'N'),
+			new EIFlatFileRowSection(this.praktijk_code, 8, 'N'),
+			new EIFlatFileRowSection(this.instelling_code, 8, 'N'),
+			new EIFlatFileRowSection(this.id_payment_to, 2, 'N'),
+			new EIFlatFileRowSection(this.start_date_invoice_period, 8, 'N'),
+			new EIFlatFileRowSection(this.end_date_invoice_period, 8, 'N'),
+			new EIFlatFileRowSection(this.invoice_id, 12, 'AN'),
+			new EIFlatFileRowSection(this.invoice_date, 8, 'N'),
+			new EIFlatFileRowSection(this.btw_id_code, 14, 'AN'),
+			new EIFlatFileRowSection(this.valuta_code, 3, 'AN'),
+			new EIFlatFileRowSection(this.reserved, 193, 'AN')
 		];
 
 		return entries.map((entry) => entry.toString()).join('');

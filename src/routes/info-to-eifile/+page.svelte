@@ -52,7 +52,7 @@
 		closingRecord.quantity_debit_records = '0';
 		closingRecord.indicatie_debet_or_credit = 'D';
 
-		prestatieRecord.indicat_debit_or_credit = 'D';
+		prestatieRecord.indicate_debit_or_credit = 'D';
 		prestatieRecord.indicat_debit_or_credit_02 = 'D';
 		prestatieRecord.id_detail_record = '2';
 		prestatieRecord.aanduiding_presetatie_code_lijst = '065';

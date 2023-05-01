@@ -24,14 +24,27 @@ export class EIFlatFileRowSection {
 	value: string;
 	maxLength: number;
 	fillChar: string;
+	type: string;
 
-	constructor(value: string, maxLength: number, fillChar = '0') {
+	constructor(value: string, maxLength: number, type: string) {
 		this.value = value.toString();
 		this.maxLength = maxLength;
-		this.fillChar = fillChar;
+		this.type = type;
+
+		if (type === 'N') {
+			this.fillChar = '0';
+		} else if (type === 'AN') {
+			this.fillChar = ' ';
+		} else {
+			this.fillChar = ' ';
+		}
 	}
 
 	toString(): string {
+		if (this.value === '') {
+			return ' '.repeat(this.maxLength);
+		}
+
 		return this.value.padStart(this.maxLength, this.fillChar);
 	}
 }

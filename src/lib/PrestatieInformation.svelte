@@ -167,7 +167,7 @@
 		</label>
 		<VektisCode
 			label={'Indicatie debet/credit O1'}
-			bind:id={record.indicat_debit_or_credit}
+			bind:id={record.indicate_debit_or_credit}
 			collection={VektisDebitOrCredit}
 			{disabled}
 			required

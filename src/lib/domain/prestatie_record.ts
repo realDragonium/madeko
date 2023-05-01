@@ -28,7 +28,7 @@ export class PrestatieRecord {
 	tarief_prestatie: string = '';
 	calculated_sum_prestatie: string = '';
 
-	indicat_debit_or_credit: string = '';
+	indicate_debit_or_credit: string = '';
 	btw_percentage: string = '';
 	declaration_sum: string = '';
 	indicat_debit_or_credit_02: string = '';
@@ -65,7 +65,7 @@ export class PrestatieRecord {
 		obj.verreken_percentage = textline.substring(159, 164);
 		obj.tarief_prestatie = textline.substring(164, 172);
 		obj.calculated_sum_prestatie = textline.substring(172, 180);
-		obj.indicat_debit_or_credit = textline.substring(180, 181);
+		obj.indicate_debit_or_credit = textline.substring(180, 181);
 		obj.btw_percentage = textline.substring(181, 184);
 		obj.declaration_sum = textline.substring(184, 193);
 		obj.indicat_debit_or_credit_02 = textline.substring(193, 194);
@@ -77,39 +77,39 @@ export class PrestatieRecord {
 
 	public get EIString(): string {
 		const entries = [
-			new EIFlatFileRowSection('04', 2),
-            new EIFlatFileRowSection(this.id_detail_record,12),
-            new EIFlatFileRowSection(this.bsn_patient, 9),
-            new EIFlatFileRowSection(this.uzovi,4),
-            new EIFlatFileRowSection(this.patient_insurance_number,15),
-            new EIFlatFileRowSection(this.machtingsnummer,15),
-            new EIFlatFileRowSection(this.doorsturen_allowed,1),
-            new EIFlatFileRowSection(this.code_indication_orgaan,4),
-            new EIFlatFileRowSection(this.client_number_indication_orgaan,20),
-            new EIFlatFileRowSection(this.indicatie_aanvraag_number,9),
-            new EIFlatFileRowSection(this.indicatie_aanvraag_response_number,9),
-            new EIFlatFileRowSection(this.functie_code,2),
-            new EIFlatFileRowSection(this.zorg_zwaarte_pakket_code,3),
-            new EIFlatFileRowSection(this.start_date,8),
-            new EIFlatFileRowSection(this.end_date,8),
-            new EIFlatFileRowSection(this.aanduiding_presetatie_code_lijst,3),
-            new EIFlatFileRowSection(this.prestatie_code,5),
-            new EIFlatFileRowSection(this.quantity_prestatie,4),
-            new EIFlatFileRowSection(this.time_unit_per_prestatie,2),
-            new EIFlatFileRowSection(this.nurse_behandelaar_code,8),
-            new EIFlatFileRowSection(this.specialism_behandelaar_code,4),
-            new EIFlatFileRowSection(this.nurse_voorschrijver_code,8),
-            new EIFlatFileRowSection(this.specialism_voorschrijver_code,4),
-            new EIFlatFileRowSection(this.verreken_percentage,5),
-            new EIFlatFileRowSection(this.tarief_prestatie,8),
-            new EIFlatFileRowSection(this.calculated_sum_prestatie,8),
-            new EIFlatFileRowSection(this.indicat_debit_or_credit,1),
-            new EIFlatFileRowSection(this.btw_percentage,3),
-            new EIFlatFileRowSection(this.declaration_sum,9),
-            new EIFlatFileRowSection(this.indicat_debit_or_credit_02,1),
-            new EIFlatFileRowSection(this.refention_number_this_prestatie,20),
-            new EIFlatFileRowSection(this.refention_number_previous_prestatie,20),
-			new EIFlatFileRowSection(this.reserved, 234)
+			new EIFlatFileRowSection('04', 2, 'N'),
+			new EIFlatFileRowSection(this.id_detail_record, 12, 'N'),
+			new EIFlatFileRowSection(this.bsn_patient, 9, 'N'),
+			new EIFlatFileRowSection(this.uzovi, 4, 'N'),
+			new EIFlatFileRowSection(this.patient_insurance_number, 15, 'AN'),
+			new EIFlatFileRowSection(this.machtingsnummer, 15, 'AN'),
+			new EIFlatFileRowSection(this.doorsturen_allowed, 1, 'N'),
+			new EIFlatFileRowSection(this.code_indication_orgaan, 4, 'N'),
+			new EIFlatFileRowSection(this.client_number_indication_orgaan, 20, 'AN'),
+			new EIFlatFileRowSection(this.indicatie_aanvraag_number, 9, 'N'),
+			new EIFlatFileRowSection(this.indicatie_aanvraag_response_number, 9, 'N'),
+			new EIFlatFileRowSection(this.functie_code, 2, 'N'),
+			new EIFlatFileRowSection(this.zorg_zwaarte_pakket_code, 3, 'N'),
+			new EIFlatFileRowSection(this.start_date, 8, 'N'),
+			new EIFlatFileRowSection(this.end_date, 8, 'N'),
+			new EIFlatFileRowSection(this.aanduiding_presetatie_code_lijst, 3, 'N'),
+			new EIFlatFileRowSection(this.prestatie_code, 5, 'AN'),
+			new EIFlatFileRowSection(this.quantity_prestatie, 4, 'N'),
+			new EIFlatFileRowSection(this.time_unit_per_prestatie, 2, 'N'),
+			new EIFlatFileRowSection(this.nurse_behandelaar_code, 8, 'N'),
+			new EIFlatFileRowSection(this.specialism_behandelaar_code, 4, 'N'),
+			new EIFlatFileRowSection(this.nurse_voorschrijver_code, 8, 'N'),
+			new EIFlatFileRowSection(this.specialism_voorschrijver_code, 4, 'N'),
+			new EIFlatFileRowSection(this.verreken_percentage, 5, 'N'),
+			new EIFlatFileRowSection(this.tarief_prestatie, 8, 'N'),
+			new EIFlatFileRowSection(this.calculated_sum_prestatie, 8, 'N'),
+			new EIFlatFileRowSection(this.indicate_debit_or_credit, 1, 'AN'),
+			new EIFlatFileRowSection(this.btw_percentage, 3, 'N'),
+			new EIFlatFileRowSection(this.declaration_sum, 9, 'N'),
+			new EIFlatFileRowSection(this.indicat_debit_or_credit_02, 1, 'AN'),
+			new EIFlatFileRowSection(this.refention_number_this_prestatie, 20, 'AN'),
+			new EIFlatFileRowSection(this.refention_number_previous_prestatie, 20, 'AN'),
+			new EIFlatFileRowSection(this.reserved, 234, 'AN')
 		];
 
 		return entries.map((entry) => entry.toString()).join('');
