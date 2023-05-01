@@ -1,6 +1,6 @@
 # Madeka
 
-![Website deploy](https://github.com/realdragonium/madeko/actions/workflows/deploy/badge.svg)
+![Website deploy](https://github.com/realdragonium/madeko/actions/workflows/deploy.yml/badge.svg)
 
 http://madeko.dragonium.nl/
 
