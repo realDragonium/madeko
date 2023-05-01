@@ -35,6 +35,10 @@
 		display: inline-block;
 	}
 
+	option {
+		text-overflow: ellipsis;
+	}
+
 	select:valid {
 		background-color: palegreen;
 	}

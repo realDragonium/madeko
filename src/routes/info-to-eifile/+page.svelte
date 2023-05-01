@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import PatientInformation from '$lib/PatientInformation.svelte';
 	import { Patient } from '$lib/domain/patient';
 	import { InvoiceMetadata } from '$lib/domain/invoice_metadata';
@@ -8,51 +9,115 @@
 	import InvoiceClosingRecord from '$lib/InvoiceClosingRecord.svelte';
 	import { SluitRecord } from '$lib/domain/invoice_closing_data';
 
-	let rows = [new InvoiceMetadata(), new Patient(), new PrestatieRecord(), new SluitRecord()];
+	let invoiceMetadata = new InvoiceMetadata();
+	let patient = new Patient();
+	let prestatieRecord = new PrestatieRecord();
+	let closingRecord = new SluitRecord();
 
-	function copy() {
-		let text = '';
-		rows.forEach((row) => (text += row.toEIString() + '\n'));
-		navigator.clipboard.writeText(text);
+	let text = '';
+
+	$: {
+		text = '';
+
+		closingRecord.total_declaration_amount = prestatieRecord.declaration_sum ?? '';
+
+		patient.uzovi = invoiceMetadata.uzovi;
+		prestatieRecord.uzovi = patient.uzovi;
+		if (!!patient.bsn_patient) prestatieRecord.bsn_patient = patient.bsn_patient;
+
+		text += invoiceMetadata.EIString + '\n';
+		text += patient.EIString + '\n';
+		text += prestatieRecord.EIString + '\n';
+		text += closingRecord.EIString + '\n';
+	}
+
+	onMount(() => {
+		invoiceMetadata.version_standard = '1';
+		invoiceMetadata.sub_version_standard = '4';
+
+		invoiceMetadata.code_software_system = '999801';
+		invoiceMetadata.valuta_code = 'EUR';
+		invoiceMetadata.message_type = 'P';
+		invoiceMetadata.id_external_integration_message = '428';
+		invoiceMetadata.invoice_date = new Date()
+			.toISOString()
+			.toString()
+			.split('T')[0]
+			.replaceAll('-', '');
+
+		closingRecord.quantity_patients_records = '1';
+		closingRecord.quantity_prestation_records = '1';
+		closingRecord.total_quantity_detail_records = '2';
+		closingRecord.quantity_comment_records = '0';
+		closingRecord.quantity_debit_records = '0';
+		closingRecord.indicatie_debet_or_credit = 'D';
+
+		prestatieRecord.indicat_debit_or_credit = 'D';
+		prestatieRecord.indicat_debit_or_credit_02 = 'D';
+		prestatieRecord.id_detail_record = '2';
+		prestatieRecord.aanduiding_presetatie_code_lijst = '065';
+		prestatieRecord.btw_percentage = '0';
+	});
+
+	function downloadFile() {
+		const blob = new Blob([text], { type: 'text/plain' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `${prestatieRecord.refention_number_this_prestatie}.asc`;
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
 	}
 </script>
 
-<h2>Plak hier inhoud van EI bestand</h2>
-<textarea id="ei-textarea" />
-
-<h2>Inhoud:</h2>
+<h2>Informatie:</h2>
 <p>
 	<a href="https://www.vektis.nl/standaardisatie/standaarden/AW319-1.4" target="_blank">
 		volgens AW319-1.4 betekend het dit (klik om naar vektis pagina te gaan hiervan)</a
 	>
 </p>
-
-{#each rows as row}
-	{#if row instanceof InvoiceMetadata}
-		<InvoiceMetatdataInformation invoiceMetadata={row} />
-	{:else if row instanceof Patient}
-		<PatientInformation patient={row} />
-	{:else if row instanceof PrestatieRecord}
-		<PrestatieInformation record={row} />
-	{:else if row instanceof SluitRecord}
-		<InvoiceClosingRecord record={row} />
-	{/if}
-{/each}
-
-<button on:click={copy}>kopieer naar klembord</button> -->
-
 <ul>
-	<li>Maak een nieuwe text bestand aan</li>
-	<li>Plak inhoud van hierboven in zojuist aangemaakte tekst bestand</li>
-	<li>Hernoem bestand naar een terug vindbare naam en zorg ervoor dat het eindigt op '.asc'</li>
+	<li>Rode vakken zijn invoervelden waarin (nog) niet de juiste informatie staat</li>
+	<li>
+		Groene vakken zijn invoervelden die niet verplicht zijn of lijken te voldoen aan de eisen.
+	</li>
+	<li>Bedragen moeten worden opgeschreven in centen. Dus &euro;1,56 &rsaquo; 156</li>
+	<li>
+		Als 'Referentienummer dit prestatierecord' is het handig om hetzelfde id te geven als het
+		factuur nummer
+	</li>
 </ul>
+
+<InvoiceMetatdataInformation bind:invoiceMetadata />
+<PatientInformation bind:patient />
+<PrestatieInformation bind:record={prestatieRecord} />
+<InvoiceClosingRecord bind:record={closingRecord} />
+
+<h2>De inhoud van EI bestand</h2>
+<textarea id="ei-textarea" value={text} disabled />
+<div class="btnWrapper">
+	<button class="storeButton" on:click={downloadFile}>Opslaan</button>
+</div>
 
 <style>
 	textarea {
 		width: 100%;
-		/* overflow: auto; */
-		/* overflow-x: scroll; */
 		white-space: pre;
 		min-height: 250px;
+	}
+	.storeButton {
+		margin-top: 10px;
+		padding: 15px 25px;
+		background-color: #2772db;
+		color: white;
+		border-radius: 25px;
+		font-size: 1.5rem;
+		font-weight: 600;
+	}
+	.btnWrapper {
+		display: flex;
+		justify-content: center;
 	}
 </style>

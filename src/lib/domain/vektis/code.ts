@@ -15,7 +15,6 @@ export function findById<T extends VektisCode>(codes: T[], id: string): T | stri
 	if (res === undefined) {
 		res = id;
 	}
-	console.log(res);
 	return res;
 }
 

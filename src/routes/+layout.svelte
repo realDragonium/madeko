@@ -3,12 +3,14 @@
 	export let data;
 </script>
 
-<div class="submenu">
-	{#each data.sections as section}
-		<a href="/{section.slug}">{section.title}</a>
-	{/each}
+<div class="page">
+	<div class="submenu">
+		{#each data.sections as section}
+			<a href="/{section.slug}">{section.title}</a>
+		{/each}
+	</div>
+	<slot />
 </div>
-<slot />
 
 <!-- Colors -->
 <!-- #070F4E -->
@@ -17,6 +19,13 @@
 
 <!-- #F5EBEB -->
 <style>
+	a {
+		padding: 16px;
+		background-color: #2772db;
+		border-radius: 10px;
+		color: #fff;
+		text-decoration: none;
+	}
 	.submenu {
 		display: flex;
 		flex-direction: row;
@@ -25,11 +34,9 @@
 		font-size: 1.3rem;
 	}
 
-	a {
-		padding: 16px;
-		background-color: #2772db;
-		border-radius: 10px;
-		color: #fff;
-		text-decoration: none;
+	.page {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 15px;
 	}
 </style>

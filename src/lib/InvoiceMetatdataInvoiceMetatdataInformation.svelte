@@ -11,7 +11,6 @@
 
 	function handleOnSubmit(event: Event) {
 		event.preventDefault();
-		console.log('Validated?!');
 	}
 </script>
 
@@ -20,7 +19,7 @@
 	<form on:submit={handleOnSubmit}>
 		<VektisCode
 			label={'Code externe-integratiebericht'}
-			id={invoiceMetadata.id_extneral_integration_message}
+			bind:id={invoiceMetadata.id_external_integration_message}
 			collection={VektisIntegrationMessageTypes}
 			{disabled}
 			required
@@ -31,24 +30,24 @@
 		</label>
 		<label>
 			Standaardisatie sub versie
-			<input type="text" bind:value={invoiceMetadata.version_standard} disabled={true} />
+			<input type="text" bind:value={invoiceMetadata.sub_version_standard} disabled={true} />
 		</label>
 		<VektisCode
 			label={'Soort bericht'}
-			id={invoiceMetadata.message_type}
+			bind:id={invoiceMetadata.message_type}
 			collection={VektisMessageType}
 			{disabled}
 			required
 		/>
 		<VektisCode
 			label={'Code informatiesysteem softwareleverancier'}
-			id={invoiceMetadata.code_software_system}
+			bind:id={invoiceMetadata.code_software_system}
 			collection={VektisSoftwareProvidersCodes}
 			{disabled}
 		/>
 		<label>
 			Software system versie
-			<input type="text" bind:value={invoiceMetadata.version_software_system} {disabled} />
+			<input type="text" bind:value={invoiceMetadata.version_software_system} disabled={true} />
 		</label>
 
 		<label>
@@ -74,19 +73,19 @@
 		</label>
 		<VektisCode
 			label={'Identificatiecode betaling aan'}
-			id={invoiceMetadata.id_payment_to}
+			bind:id={invoiceMetadata.id_payment_to}
 			collection={VektisPaymentTo}
 			{disabled}
 			required
 		/>
 		<TimestampInput
-			text={'Begindatum declaratieperiode (YYYYMMDD)'}
+			text={'Begindatum declaratieperiode (JJJJMMDD)'}
 			required
 			{disabled}
 			bind:data={invoiceMetadata.start_date_invoice_period}
 		/>
 		<TimestampInput
-			text={'Einddatum declaratieperiode (YYYYMMDD)'}
+			text={'Einddatum declaratieperiode (JJJJMMDD)'}
 			required
 			{disabled}
 			bind:data={invoiceMetadata.end_date_invoice_period}
@@ -96,7 +95,7 @@
 			<input type="text" bind:value={invoiceMetadata.invoice_id} required {disabled} />
 		</label>
 		<TimestampInput
-			text={'Dagtekening factuur (YYYYMMDD)'}
+			text={'Dagtekening factuur (JJJJMMDD)'}
 			required
 			{disabled}
 			bind:data={invoiceMetadata.invoice_date}
@@ -107,7 +106,7 @@
 		</label>
 		<VektisCode
 			label={'Valuta'}
-			id={invoiceMetadata.valuta_code}
+			bind:id={invoiceMetadata.valuta_code}
 			collection={VektisValuta}
 			{disabled}
 			required

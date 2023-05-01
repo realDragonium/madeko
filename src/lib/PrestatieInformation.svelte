@@ -16,6 +16,12 @@
 	export let record: PrestatieRecord;
 	export let disabled = false;
 
+	$: record.calculated_sum_prestatie = `${
+		record.quantity_prestatie * record.tarief_prestatie ?? 0
+	}`;
+
+	$: record.declaration_sum = record.calculated_sum_prestatie;
+
 	function handleOnSubmit(event: Event) {
 		event.preventDefault();
 	}
@@ -82,13 +88,13 @@
 			{disabled}
 		/>
 		<TimestampInput
-			text="{'Begindatum (YYYYMMDD)'},"
+			text={'Begin datum (JJJJMMDD)'}
 			bind:data={record.start_data}
 			{disabled}
 			required
 		/>
 		<TimestampInput
-			text="{'Enddatum (YYYYMMDD)'},"
+			text={'Eind datum (JJJJMMDD)'}
 			bind:data={record.end_date}
 			{disabled}
 			required
@@ -105,7 +111,7 @@
 			<input type="text" bind:value={record.prestatie_code} required {disabled} />
 		</label>
 		<label>
-			aantal uitgevoerde prestaties
+			Aantal uitgevoerde prestaties
 			<input type="text" bind:value={record.quantity_prestatie} required {disabled} />
 		</label>
 		<VektisCode
@@ -115,7 +121,7 @@
 			{disabled}
 		/>
 		<label>
-			zorgverlenerscode behandelaar/uitvoerder
+			Zorgverlenerscode behandelaar/uitvoerder
 			<input type="text" bind:value={record.nurse_behandelaar_code} required {disabled} />
 		</label>
 		<VektisCode
@@ -125,7 +131,7 @@
 			{disabled}
 		/>
 		<label>
-			zorgverlenerscode voorschrijver/verwijzer
+			Zorgverlenerscode voorschrijver/verwijzer
 			<input type="text" bind:value={record.nurse_voorschrijver_code} {disabled} />
 		</label>
 		<VektisCode
@@ -135,16 +141,29 @@
 			{disabled}
 		/>
 		<label>
-			verrekenpercentage
+			Verrekenpercentage
 			<input type="text" bind:value={record.verreken_percentage} {disabled} />
 		</label>
 		<label>
-			tarief prestatie (inlc. btw)
-			<input type="text" bind:value={record.tarief_prestatie} required {disabled} />
+			Tarief prestatie (inlc. btw) (in centen)
+			<input
+				type="text"
+				bind:value={record.tarief_prestatie}
+				pattern="[0-9]+"
+				required
+				{disabled}
+				on:change={() => (record.tarief_prestatie = record.tarief_prestatie.replaceAll(',', ''))}
+			/>
 		</label>
 		<label>
 			Berekend bedrag (inlc. btw)
-			<input type="text" bind:value={record.calculated_sum_prestatie} required {disabled} />
+			<input
+				type="text"
+				bind:value={record.calculated_sum_prestatie}
+				pattern="[0-9]+"
+				required
+				{disabled}
+			/>
 		</label>
 		<VektisCode
 			label={'Indicatie debet/credit O1'}
@@ -159,7 +178,7 @@
 		</label>
 		<label>
 			declaratiebedrag (incl. btw)
-			<input type="text" bind:value={record.declaration_sum} required {disabled} />
+			<input type="text" bind:value={record.declaration_sum} pattern="[0-9]+" required {disabled} />
 		</label>
 		<VektisCode
 			label={'Indicatie debet/credit O2'}

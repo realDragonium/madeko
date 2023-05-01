@@ -4,11 +4,10 @@
 	import { VektisDebitOrCredit } from './domain/vektis/code';
 
 	export let record: SluitRecord;
-	export let freeze = false;
+	export let disabled = false;
 
 	function handleOnSubmit(event: Event) {
 		event.preventDefault();
-		console.log('Validated?!');
 	}
 </script>
 
@@ -17,37 +16,38 @@
 	<form on:submit={handleOnSubmit}>
 		<label>
 			Aantal verzekerdenrecords
-			<input type="text" bind:value={record.quantity_patients_records} disabled={freeze} />
+			<input type="text" bind:value={record.quantity_patients_records} {disabled} />
 		</label>
 		<label>
 			aantal debiteurrecords
-			<input type="text" bind:value={record.quantity_debit_records} disabled={freeze} />
+			<input type="text" bind:value={record.quantity_debit_records} {disabled} />
 		</label>
 		<label>
-			Aantal restatierecords
-			<input type="text" bind:value={record.quantity_prestation_records} disabled={freeze} />
+			Aantal prestatierecords
+			<input type="text" bind:value={record.quantity_prestation_records} {disabled} />
 		</label>
 		<label>
 			Aantal Commentaarrecords
-			<input type="text" bind:value={record.quantity_comment_records} disabled={freeze} />
+			<input type="text" bind:value={record.quantity_comment_records} {disabled} />
 		</label>
 		<label>
 			Totaal aantal detailrecords
-			<input type="text" bind:value={record.total_quantity_detail_records} disabled={freeze} />
+			<input type="text" bind:value={record.total_quantity_detail_records} {disabled} />
 		</label>
 		<label>
 			Totaal declaratie bedrag
-			<input type="text" bind:value={record.total_declaration_amount} disabled={freeze} />
+			<input type="text" bind:value={record.total_declaration_amount} {disabled} />
 		</label>
 		<VektisCode
 			label={'Indicatie debet/credit'}
-			id={record.indicatie_debet_or_credit}
+			bind:id={record.indicatie_debet_or_credit}
 			collection={VektisDebitOrCredit}
-			disabled={freeze}
+			{disabled}
+			required
 		/>
 		<label>
 			Reserve
-			<input type="text" bind:value={record.reserved} disabled={freeze} />
+			<input type="text" bind:value={record.reserved} {disabled} />
 		</label>
 		<!-- <button style="grid-column: span 2; width: 50%;">Check</button> -->
 	</form>

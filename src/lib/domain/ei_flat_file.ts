@@ -25,13 +25,13 @@ export class EIFlatFileRowSection {
 	maxLength: number;
 	fillChar: string;
 
-	constructor(value: string, maxLength: number, fillChar = ' ') {
+	constructor(value: string, maxLength: number, fillChar = '0') {
 		this.value = value.toString();
 		this.maxLength = maxLength;
 		this.fillChar = fillChar;
 	}
 
 	toString(): string {
-		return this.value.padEnd(this.maxLength, this.fillChar);
+		return this.value.padStart(this.maxLength, this.fillChar);
 	}
 }

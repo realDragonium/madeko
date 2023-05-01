@@ -2,7 +2,7 @@ import { EIFlatFileRowSection } from './ei_flat_file';
 
 // https://www.vektis.nl/standaardisatie/standaarden/AW319-1.4 01
 export class InvoiceMetadata {
-	id_extneral_integration_message: string = '';
+	id_external_integration_message: string = '';
 	version_standard: string = '';
 	sub_version_standard: string = '';
 	message_type: string = '';
@@ -26,8 +26,8 @@ export class InvoiceMetadata {
 	public static readString(textline: string): InvoiceMetadata {
 		const obj = new InvoiceMetadata();
 		textline.substring(0, 2);
-		obj.id_extneral_integration_message = textline.substring(2, 5);
-		obj.version_standard = textline.substring(2, 7);
+		obj.id_external_integration_message = textline.substring(2, 5);
+		obj.version_standard = textline.substring(5, 7);
 		obj.sub_version_standard = textline.substring(7, 9);
 		obj.message_type = textline.substring(9, 10);
 
@@ -55,7 +55,7 @@ export class InvoiceMetadata {
 	public get EIString(): string {
 		const entries = [
 			new EIFlatFileRowSection('01', 2),
-			new EIFlatFileRowSection(this.id_extneral_integration_message, 3),
+			new EIFlatFileRowSection(this.id_external_integration_message, 3),
 			new EIFlatFileRowSection(this.version_standard, 2),
 			new EIFlatFileRowSection(this.sub_version_standard, 2),
 			new EIFlatFileRowSection(this.message_type, 1),

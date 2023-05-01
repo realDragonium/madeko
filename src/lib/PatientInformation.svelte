@@ -27,9 +27,9 @@
 			<input type="text" bind:value={patient.uzovi} maxlength="4" required disabled={disbaled} />
 		</label>
 		<TimestampInput
-			text={'Birthday (YYYYMMDD)'}
+			text={'Birthday (JJJJMMDD)'}
 			disabled={disbaled}
-			requiredw
+			required
 			bind:data={patient.birth_day_string}
 		/>
 		<VektisCode

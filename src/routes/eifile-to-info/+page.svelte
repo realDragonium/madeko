@@ -10,19 +10,21 @@
 
 	let rows = [];
 
-	function copy() {
-		let text = '';
-		rows.forEach((row) => (text += row.toEIString() + '\n'));
-		navigator.clipboard.writeText(text);
+	function handleDrop(event) {
+		event.preventDefault();
+
+		const file = event.dataTransfer.files[0];
+		const reader = new FileReader();
+		reader.onload = () => {
+			const text = reader.result;
+			createInfoFromText(text.split('\n'));
+			let textArea = document.getElementById('ei-textarea');
+			textArea.value = text;
+		};
+		reader.readAsText(file);
 	}
 
-	function reverseFunc(event: Event) {
-		event.preventDefault();
-		rows = [];
-
-		let textArea = document.getElementById('ei-textarea');
-		const lines: string[] = textArea.value.split('\n');
-
+	function createInfoFromText(lines: string[]) {
 		lines.forEach((line) => {
 			let data;
 			if (line.startsWith('01')) {
@@ -40,10 +42,28 @@
 			rows = [...rows, data];
 		});
 	}
+
+	function reverseFunc(event: Event) {
+		event.preventDefault();
+		rows = [];
+
+		let textArea = document.getElementById('ei-textarea');
+		createInfoFromText(textArea.value.split('\n'));
+	}
 </script>
 
-<h2>Plak hier inhoud van EI bestand</h2>
-<textarea id="ei-textarea" on:change={reverseFunc} />
+<h2>Lees een bestand uit</h2>
+<ul>
+	<li>Plak hier inhoud van EI bestand</li>
+	<li>Of sleep een EI bestand hier onder in het veld</li>
+</ul>
+<textarea
+	id="ei-textarea"
+	on:change={reverseFunc}
+	on:dragover={(event) => event.preventDefault()}
+	on:drop={handleDrop}
+/>
+
 <button on:click={reverseFunc}
 	>Als er niks verandert na een verandering hierboven, druk dan op deze knop</button
 >
@@ -63,22 +83,13 @@
 	{:else if row instanceof PrestatieRecord}
 		<PrestatieInformation record={row} disabled={true} />
 	{:else if row instanceof SluitRecord}
-		<InvoiceClosingRecord record={row} freeze={true} />
+		<InvoiceClosingRecord record={row} disabled={true} />
 	{/if}
 {/each}
 
-<!-- <button on:click={copy}>kopieer naar klembord</button> -->
-
-<!-- <ul>
-	<li>Maak een nieuwe text bestand aan</li>
-	<li>Plak inhoud van hierboven in zojuist aangemaakte tekst bestand</li>
-	<li>Hernoem bestand naar een terug vindbare naam en zorg ervoor dat het eindigt op '.asc'</li>
-</ul> -->
 <style>
 	textarea {
 		width: 100%;
-		/* overflow: auto; */
-		/* overflow-x: scroll; */
 		white-space: pre;
 		min-height: 250px;
 	}

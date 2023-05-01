@@ -12,7 +12,7 @@
 		bind:value={data}
 		maxlength="8"
 		minlength="8"
-		pattern="[0-9]&#123;8&#123;"
+		pattern="[0-9]&#123;8&#125;"
 		{disabled}
 		{required}
 	/>
