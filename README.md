@@ -1,4 +1,4 @@
-# MeDoKa
+# Madeka
 
 ## What is it?
 
