@@ -10,8 +10,12 @@ Its an applcation meant to create EI files (invoice) conforming the standards of
 script/serve
 ```
 
+## Deploy
+
+https://kit.svelte.dev/docs/adapter-static#github-pages
 
 ### Template readme left over
+
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:

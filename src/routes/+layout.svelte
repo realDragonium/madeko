@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { base } from '$app/paths';
+
 	/** @type {import('./$types').LayoutData} */
 	export let data;
 </script>
@@ -6,7 +8,7 @@
 <div class="page">
 	<div class="submenu">
 		{#each data.sections as section}
-			<a href="/{section.slug}">{section.title}</a>
+			<a href="{base}/{section.slug}">{section.title}</a>
 		{/each}
 	</div>
 	<slot />
