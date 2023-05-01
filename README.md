@@ -1,8 +1,8 @@
-# Madeka
+# Madeko
 
 ![Website deploy](https://github.com/realdragonium/madeko/actions/workflows/deploy.yml/badge.svg)
 
-http://madeko.dragonium.nl/
+https://madeko.dragonium.nl/
 
 ## What is it?
 
