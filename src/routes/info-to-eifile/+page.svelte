@@ -17,14 +17,9 @@
 	let text = '';
 
 	$: {
-		text = '';
-
 		closingRecord.total_declaration_amount = prestatieRecord.declaration_sum ?? '';
 
-		patient.uzovi = invoiceMetadata.uzovi;
-		prestatieRecord.uzovi = patient.uzovi;
-		if (!!patient.bsn_patient) prestatieRecord.bsn_patient = patient.bsn_patient;
-
+		text = '';
 		text += invoiceMetadata.EIString + '\n';
 		text += patient.EIString + '\n';
 		text += prestatieRecord.EIString + '\n';
