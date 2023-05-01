@@ -1,5 +1,9 @@
 # Madeka
 
+![Website deploy](https://github.com/realdragonium/madeko/actions/workflows/deploy/badge.svg)
+
+http://madeko.dragonium.nl/
+
 ## What is it?
 
 Its an applcation meant to create EI files (invoice) conforming the standards of [AW-319](https://www.vektis.nl/standaardisatie/standaarden/AW319-1.4). If youre not familair with it, dont worry you likely won't need to use it.
