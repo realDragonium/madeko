@@ -31,7 +31,7 @@
 		invoiceMetadata.sub_version_standard = '4';
 
 		invoiceMetadata.code_software_system = '999801';
-		invoiceMetadata.version_software_system = '0.1';
+		invoiceMetadata.version_software_system = '0.0.0.1';
 		invoiceMetadata.valuta_code = 'EUR';
 		invoiceMetadata.message_type = 'P';
 		invoiceMetadata.id_external_integration_message = '428';

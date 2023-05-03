@@ -44,7 +44,10 @@ export class EIFlatFileRowSection {
 		if (this.value === '') {
 			return ' '.repeat(this.maxLength);
 		}
-
-		return this.value.padStart(this.maxLength, this.fillChar);
+		if (this.type === 'N') {
+			return this.value.padStart(this.maxLength, this.fillChar);
+		} else {
+			return this.value.padEnd(this.maxLength, this.fillChar);
+		}
 	}
 }
