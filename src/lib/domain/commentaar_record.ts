@@ -19,11 +19,11 @@ export class CommentaarRecord {
 
 	public get EIString(): string {
 		const entries = [
-			new EIFlatFileRowSection('98', 2),
-			new EIFlatFileRowSection(this.id_detail_record, 12),
-			new EIFlatFileRowSection(this.line_numbers_text, 4),
-			new EIFlatFileRowSection(this.text, 140),
-			new EIFlatFileRowSection(this.reserved, 234)
+			new EIFlatFileRowSection('98', 2, 'N'),
+			new EIFlatFileRowSection(this.id_detail_record, 12, 'N'),
+			new EIFlatFileRowSection(this.line_numbers_text, 4, 'N'),
+			new EIFlatFileRowSection(this.text, 140, 'AN'),
+			new EIFlatFileRowSection(this.reserved, 152, 'AN')
 		];
 
 		return entries.map((entry) => entry.toString()).join('');

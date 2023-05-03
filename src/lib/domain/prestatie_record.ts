@@ -104,12 +104,12 @@ export class PrestatieRecord {
 			new EIFlatFileRowSection(this.tarief_prestatie, 8, 'N'),
 			new EIFlatFileRowSection(this.calculated_sum_prestatie, 8, 'N'),
 			new EIFlatFileRowSection(this.indicate_debit_or_credit, 1, 'AN'),
-			new EIFlatFileRowSection(this.btw_percentage, 3, 'N'),
-			new EIFlatFileRowSection(this.declaration_sum, 9, 'N'),
+			new EIFlatFileRowSection(this.btw_percentage, 4, 'N'),
+			new EIFlatFileRowSection(this.declaration_sum, 8, 'N'),
 			new EIFlatFileRowSection(this.indicat_debit_or_credit_02, 1, 'AN'),
 			new EIFlatFileRowSection(this.refention_number_this_prestatie, 20, 'AN'),
 			new EIFlatFileRowSection(this.refention_number_previous_prestatie, 20, 'AN'),
-			new EIFlatFileRowSection(this.reserved, 234, 'AN')
+			new EIFlatFileRowSection(this.reserved, 76, 'AN')
 		];
 
 		return entries.map((entry) => entry.toString()).join('');

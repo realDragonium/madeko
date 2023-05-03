@@ -28,15 +28,15 @@ export class SluitRecord {
 
 	public get EIString(): string {
 		const entries = [
-			new EIFlatFileRowSection('99',2, 'N'),
-			new EIFlatFileRowSection(this.quantity_patients_records,6, 'N'),
-			new EIFlatFileRowSection(this.quantity_debit_records,6, 'N'),
-			new EIFlatFileRowSection(this.quantity_prestation_records,6, 'N'),
-			new EIFlatFileRowSection(this.quantity_comment_records,6, 'N'),
-			new EIFlatFileRowSection(this.total_quantity_detail_records,7, 'N'),
-			new EIFlatFileRowSection(this.total_declaration_amount,11, 'N'),
-			new EIFlatFileRowSection(this.indicatie_debet_or_credit,1, 'AN'),
-			new EIFlatFileRowSection(this.reserved, 234, 'AN')
+			new EIFlatFileRowSection('99', 2, 'N'),
+			new EIFlatFileRowSection(this.quantity_patients_records, 6, 'N'),
+			new EIFlatFileRowSection(this.quantity_debit_records, 6, 'N'),
+			new EIFlatFileRowSection(this.quantity_prestation_records, 6, 'N'),
+			new EIFlatFileRowSection(this.quantity_comment_records, 6, 'N'),
+			new EIFlatFileRowSection(this.total_quantity_detail_records, 7, 'N'),
+			new EIFlatFileRowSection(this.total_declaration_amount, 11, 'N'),
+			new EIFlatFileRowSection(this.indicatie_debet_or_credit, 1, 'AN'),
+			new EIFlatFileRowSection(this.reserved, 265, 'AN')
 		];
 
 		return entries.map((entry) => entry.toString()).join('');
