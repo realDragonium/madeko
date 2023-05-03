@@ -23,7 +23,7 @@
 		text += invoiceMetadata.EIString + '\r\n';
 		text += patient.EIString + '\r\n';
 		text += prestatieRecord.EIString + '\r\n';
-		text += closingRecord.EIString;
+		text += closingRecord.EIString + '\r\n';
 	}
 
 	onMount(() => {
