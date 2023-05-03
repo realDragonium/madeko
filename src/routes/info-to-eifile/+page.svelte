@@ -20,10 +20,10 @@
 		closingRecord.total_declaration_amount = prestatieRecord.declaration_sum ?? '';
 
 		text = '';
-		text += invoiceMetadata.EIString + '\n';
-		text += patient.EIString + '\n';
-		text += prestatieRecord.EIString + '\n';
-		text += closingRecord.EIString + '\n';
+		text += invoiceMetadata.EIString + '\r\n';
+		text += patient.EIString + '\r\n';
+		text += prestatieRecord.EIString + '\r\n';
+		text += closingRecord.EIString;
 	}
 
 	onMount(() => {
